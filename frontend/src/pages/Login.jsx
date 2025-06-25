@@ -22,24 +22,24 @@ export const Login = () => {
             },
         })
         .then((res) => {
-
             Swal.fire({
             title: "User logged-in successfully!",
             icon: "success"
             })
-
             localStorage.setItem('access_token', res.data.access_token)
             localStorage.setItem('refresh_token', res.data.refresh_token)
-            
             navigate("/")
-
             setTimeout(() => {
                 window.location.reload();
-            }, 2000);
-            
+            }, 1000);
         }
         )
-        .catch((err) => console.error(err))
+        .catch((err) => {
+            Swal.fire({
+            title: err.response.data.result,
+            icon: "error"
+            })
+        })
 
     }
 

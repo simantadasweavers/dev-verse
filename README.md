@@ -13,3 +13,8 @@ Its a MERN stack project. Specailly focused on simplicity.
 frontend => react app
 backend => node/express api
 ```
+
+## Challange 
+```
+1. Blog rest api slug generator
+```

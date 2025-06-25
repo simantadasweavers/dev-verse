@@ -21,7 +21,7 @@ const jwt = require('jsonwebtoken');
 router.post('/user/register', upload.single('profile_img'), async (req, res) => {
     try {
         const mongo = await Mongo();
-        const User = await mongo.model("users", userSchema);
+        const User = await mongo.model("User", userSchema);
         const result = await User.findOne({ "email": req.body.email }).exec();
 
         if (result == null) {
@@ -60,7 +60,7 @@ router.post('/user/register', upload.single('profile_img'), async (req, res) => 
 router.post('/user/login', async (req, res) => {
     try {
         const mongo = await Mongo();
-        const User = await mongo.model("users", userSchema);
+        const User = await mongo.model("User", userSchema);
         const result = await User.findOne({ "email": req.body.email }).exec();
 
         if (result) {
@@ -87,7 +87,7 @@ router.post('/user/login', async (req, res) => {
 router.post('/user/forget-password', async (req, res) => {
     try {
         const mongo = await Mongo();
-        const User = await mongo.model("users", userSchema);
+        const User = await mongo.model("User", userSchema);
         const result = await User.findOne({ "email": req.body.email }).exec();
 
         if (result) {
@@ -106,7 +106,7 @@ router.post('/user/forget-password', async (req, res) => {
 router.post('/user', async (req, res) => {
     try {
         const mongo = await Mongo();
-        const User = await mongo.model("users", userSchema);
+        const User = await mongo.model("User", userSchema);
         if (req.body.access_token) {
             try {
                 let decoded = jwt.verify(req.body.access_token, process.env.ACCESS_TOKEN_PRIVATE_KEY);
