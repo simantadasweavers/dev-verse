@@ -18,7 +18,7 @@ const jwt = require('jsonwebtoken');
 
 
 
-router.post('/user/register', upload.single('file'), async (req, res) => {
+router.post('/user/register', upload.single('profile_img'), async (req, res) => {
     try {
         const mongo = await Mongo();
         const User = await mongo.model("users", userSchema);
@@ -33,7 +33,7 @@ router.post('/user/register', upload.single('file'), async (req, res) => {
                         email: req.body.email,
                         password: hashedPassword,
                         skills: req.body.skills,
-                        exp: req.body.exp,
+                        exp: parseInt(req.body.exp),
                         loc: req.body.loc,
                         profile_img: req.file.filename,
                     });
