@@ -48,20 +48,16 @@ export const AllBlogs = () => {
 
                                             return (
 
-                                                <div class="col-md-6">
-                                                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                                                        <div class="col-auto d-none d-lg-block">
-                                                            <img src={import.meta.env.VITE_BACKEND_URL+"/"+item.thumbnail} className="img" alt={item.title} style={{ maxWidth: 300, maxHeight: 300 }} />
+                                                <div class="col-6" style={{ border: '2px solid black' }} >
+                                                    <div className="row">
+                                                        <div className="col-lg-6">
+                                                            <img src={import.meta.env.VITE_BACKEND_URL+"/"+item.thumbnail} class="img img-fluid" alt="" />
                                                         </div>
-                                                        <div class="col p-4 d-flex flex-column position-static"> <strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
-                                                            <h3 class="mb-0">{item.title}</h3>
-                                                            <div class="mb-1 text-body-secondary">Nov 11</div>
-                                                            <p class="mb-auto">
-                                                            { item.excerpt }
-                                                            </p> 
-                                                            <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-                                                                Continue reading
-                                                                <svg class="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg> </a> 
+                                                        <div className="col-lg-6">
+                                                            <h5>{item.title}</h5>
+                                                            <p>
+                                                                {item.excerpt}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
