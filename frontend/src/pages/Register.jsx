@@ -42,7 +42,7 @@ export const Register = () => {
             localStorage.setItem('access_token', res.data.access_token)
             localStorage.setItem('refresh_token', res.data.refresh_token)
             
-            navigate("/")
+            navigate("/login")
         }
         )
         .catch((err) => console.error(err))

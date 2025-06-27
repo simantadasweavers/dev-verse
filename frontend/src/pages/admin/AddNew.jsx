@@ -23,7 +23,7 @@ export const AddNew = () => {
         formData.append("access_token", localStorage.getItem('access_token'))
 
             axios({
-                url: '/posts',
+                url: '/post',
                 method: 'post',
                 data: formData,
                 headers: {

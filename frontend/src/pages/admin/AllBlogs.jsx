@@ -9,7 +9,7 @@ export const AllBlogs = () => {
 
     useEffect(() => {
         axios({
-            url: '/get-posts',
+            url: '/posts',
             method: 'post',
             data: { "access_token": localStorage.getItem("access_token") },
         })
@@ -40,37 +40,38 @@ export const AllBlogs = () => {
                                 <br />
 
 
-                                {/*  single blog start */}
-                                {
-                                    result ? result.map((item, index) => {
-                                            // console.log(key._id+key.title);
-                                            
-                                            return(
+                                <div className="row">
 
-                                                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" key={index}>
-                                            <div class="col-auto d-lg-block">
-                                                <img src={import.meta.env.VITE_BACKEND_URL+"/"+item.thumbnail} className="img" alt="" style={{ maxWidth: 400,  maxHeight: 300 }} />
-                                            </div>
-                                            
-                                            <div class="col p-4 d-flex flex-column position-static">
-                                                {/* <strong class="d-inline-block mb-2 text-primary-emphasis">World</strong> */}
-                                                <h3 class="mb-0">{item.title}</h3>
-                                                {/* <div class="mb-1 text-body-secondary">Nov 12</div> */}
-                                                <p class="card-text mb-auto">
-                                                    {item.excerpt}
-                                                </p>
-                                                {/* <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-                                                    Continue reading
-                                                    <svg class="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg> 
-                                                </a> */}
-                                            </div>
-                                        </div>
+
+                                    {
+                                        result ? result.map((item, index) => {
+
+                                            return (
+
+                                                <div class="col-md-6">
+                                                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                                        <div class="col-auto d-none d-lg-block">
+                                                            <img src={import.meta.env.VITE_BACKEND_URL+"/"+item.thumbnail} className="img" alt={item.title} style={{ maxWidth: 300, maxHeight: 300 }} />
+                                                        </div>
+                                                        <div class="col p-4 d-flex flex-column position-static"> <strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
+                                                            <h3 class="mb-0">{item.title}</h3>
+                                                            <div class="mb-1 text-body-secondary">Nov 11</div>
+                                                            <p class="mb-auto">
+                                                            { item.excerpt }
+                                                            </p> 
+                                                            <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+                                                                Continue reading
+                                                                <svg class="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg> </a> 
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                             )
-                                        
-                                    }) : ''
-                                }
-                                {/* single blog end */}
+
+                                        }) : ''
+                                    }
+
+                                </div>
 
 
 

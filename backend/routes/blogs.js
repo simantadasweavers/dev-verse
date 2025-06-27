@@ -18,7 +18,7 @@ const jwt = require('jsonwebtoken');
 const slugify = require('slugify');
 
 
-router.post("/posts", upload.single('thumbnail'), async (req, res) => {
+router.post("/post", upload.single('thumbnail'), async (req, res) => {
     try {
         const mongo = await Mongo();
         const Blog = await mongo.model("Blog", BlogSchema);
@@ -57,7 +57,7 @@ router.post("/posts", upload.single('thumbnail'), async (req, res) => {
 });
 
 
-router.post("/get-posts", async (req, res) => {
+router.post("/posts", async (req, res) => {
     try {
         const mongo = await Mongo();
         const Blog = await mongo.model("Blog", BlogSchema);

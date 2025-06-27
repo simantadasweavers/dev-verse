@@ -38,7 +38,7 @@ router.post('/user/register', upload.single('profile_img'), async (req, res) => 
                         profile_img: req.file.filename,
                     });
                     user.save();
-                    
+
                     let access_token = jwt.sign({ email: user.email, id: user._id }, process.env.ACCESS_TOKEN_PRIVATE_KEY, { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION });
                     let refresh_token = jwt.sign({ email: user.email, id: user._id }, process.env.REFRESH_TOKEN_PRIVATE_KEY, { expiresIn: process.env.REFRESH_TOKEN_EXPIRATION });
                     res.status(201).send({ "status": "success", "result": user, "access_token": access_token, "refresh_token": refresh_token });
@@ -121,6 +121,37 @@ router.post('/user', async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).send({ "status": "failed", "result": err });
+    }
+});
+
+router.post('/user/update', async (req, res) => {
+    if (req.body.access_token) {
+        const mongo = await Mongo();
+        const User = await mongo.model("User", userSchema);
+        let decoded = jwt.verify(req.body.access_token, process.env.ACCESS_TOKEN_PRIVATE_KEY);
+        let user = User.find({_id: decoded.id}).exec(); 
+
+        await User.findByIdAndUpdate(decoded.id, {
+            first_name: req.body.first_name ? req.body.first_name : user.first_name,
+            last_name : req.body.last_name ? req.body.last_name : user.last_name,
+            email: req.body.email ? req.body.email : user.email,
+            skills: req.body.skills ? req.body.skills : user.skills,
+            exp: req.body.exp ? req.body.exp : user.exp,
+            loc: req.body.loc ? req.body.loc : user.loc
+        }, { new: true })
+            .then(updatedUser => {
+                if (updatedUser) {
+                    res.status(201).send({"status":"success", "result":'User updated successfully'})
+                } else {
+                    res.status(301).send({"status":"failed", "result":'User not found'})
+                }
+            })
+            .catch(error => {
+                res.status(501).send({"status":"failed", "result": error })
+            });
+
+    } else {
+        res.status(500).send({ "status": "failed", "result": "provide your access token" });
     }
 });
 

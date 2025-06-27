@@ -23,12 +23,9 @@ function App() {
   useEffect(() => {
     async function fetchUser() {
       if (localStorage.getItem("access_token") || localStorage.getItem("refresh_token")) {
-        await axios({
-          url: '/user',
-          method: 'post',
-          data: {
-            "access_token": localStorage.getItem("access_token")
-          }
+
+        axios.post("/user", {
+          "access_token": localStorage.getItem("access_token")
         })
           .then((res) => {
             if (res.data.result._id) {
@@ -37,6 +34,7 @@ function App() {
             }
           })
           .catch((err) => console.error(err))
+
       }
 
     }
@@ -54,10 +52,10 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/admin/dashboard" element={isLoggedIn ? <AdminPage /> : <Login /> } />
-          <Route path="/admin/posts" element={isLoggedIn ? <AllBlogs /> : <Login /> } />
-          <Route path="/admin/add-new" element={ isLoggedIn ? <AddNew /> : <Login /> } />
-          <Route path="/admin/profile" element={ isLoggedIn ? <Profile /> : <Login /> } />
+          <Route path="/admin/dashboard" element={isLoggedIn ? <AdminPage /> : <Login />} />
+          <Route path="/admin/posts" element={isLoggedIn ? <AllBlogs /> : <Login />} />
+          <Route path="/admin/add-new" element={isLoggedIn ? <AddNew /> : <Login />} />
+          <Route path="/admin/profile" element={isLoggedIn ? <Profile /> : <Login />} />
         </Routes>
       </main>
       <Footer />
